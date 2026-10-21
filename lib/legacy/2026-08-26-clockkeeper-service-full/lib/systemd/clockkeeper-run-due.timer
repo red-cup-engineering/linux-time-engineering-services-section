@@ -1,0 +1,12 @@
+[Unit]
+Description=Pulse the Cold Red Gate Clockkeeper every fifteen minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=15min
+AccuracySec=15s
+Persistent=true
+Unit=clockkeeper-run-due.service
+
+[Install]
+WantedBy=timers.target

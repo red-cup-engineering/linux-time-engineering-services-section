@@ -1,0 +1,15 @@
+{
+  "name": "@red-cup-engineering/linux-time-services-section",
+  "version": "0.1.0",
+  "description": "Linux time services: clock-keeping for Linux hosts.",
+  "type": "module",
+  "keywords": [
+    "engineering"
+  ],
+  "exports": {
+    "./service": "./scripts/service.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}

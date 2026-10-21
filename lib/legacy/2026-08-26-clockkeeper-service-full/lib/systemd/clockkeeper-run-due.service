@@ -1,0 +1,30 @@
+[Unit]
+Description=Cold Red Gate Clockkeeper contracted delivery tick
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/services/clockkeeper-service
+Environment=PATH=%h/.local/bin:%h/.nvm/versions/node/v24.16.0/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CLOCKKEEPER_ACTOR=https://bare-cedar-fog.561.group/actors/cold-red-gate-clockkeeper
+Environment=SCHEDULED_ACTIVITY_DELIVERY_DATA_ROOT=%h/services/clockkeeper-service/data
+Environment=RWIL_RDF_AGENT=http://127.0.0.1:8787/.well-known/agent-card.json
+Environment=CLOCKKEEPER_TARGET_ENV_ALLOWLIST=ACTIVITYPUB_ORIGIN,ACTIVITYPUB_IDENTIFIER,ACTIVITYPUB_KEYS_PATH,ACTIVITYPUB_RECIPIENT,ACTIVITYPUB_RECIPIENT_INBOX
+Environment=ACTIVITYPUB_ORIGIN=https://bare-cedar-fog.561.group
+Environment=ACTIVITYPUB_IDENTIFIER=cold-red-gate-clockkeeper
+Environment=ACTIVITYPUB_KEYS_PATH=%h/.local/share/emsenn/activitypub/cold-red-gate-clockkeeper.json
+Environment=ACTIVITYPUB_RECIPIENT=https://koios.news/activitypub/actor
+Environment=ACTIVITYPUB_RECIPIENT_INBOX=https://bare-cedar-fog.561.group/inbox
+# Clockkeeper now signs and transmits a pulse; it never runs the customer's
+# newsroom, inference clients, or deployment tools on Cold Red Gate.
+TimeoutStartSec=5min
+Nice=10
+CPUWeight=50
+IOWeight=50
+MemoryHigh=20%
+MemoryMax=30%
+MemorySwapMax=0
+TasksMax=64
+OOMPolicy=stop
+ExecStart=/usr/bin/env node src/service.mjs --operation run-due

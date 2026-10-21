@@ -1,0 +1,54 @@
+{
+  "name": "@emsenn/clockkeeper-service",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Portable Clockkeeper service for colony-owned, contracted, idempotent ActivityStreams delivery.",
+  "bin": {
+    "solicit-service": "./src/service.mjs",
+    "invoke-service": "./src/service.mjs",
+    "retire-schedule": "./src/service.mjs",
+    "run-due": "./src/service.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/law.mjs && node --check src/service.mjs && node --check test/service.test.mjs",
+    "test": "node --test test/service.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "dependencies": {
+    "@emsenn/rmn-semantic-conformance": "file:../../../../../../../561-group/services/lenticule-science/services/obsmetrological-services-section/services/rmn-semantic-conformance",
+    "@emsenn/rwil-rdf-services": "file:../../../../../../../561-group/services/lenticule-science/services/obsmetrological-services-section/services/rwil-rdf-services"
+  },
+  "x-agentic-metro-enterprise": {
+    "node-id": "clockkeeper-service",
+    "owners": ["board-of-directors", "executive-office", "working-services-section"],
+    "membrane": { "law": "lib/", "lasting-instances": "content/", "append-only-instances": "data/" },
+    "admission": "an exact ActivityStreams solicitation followed by customer acceptance of the provider offer and an attenuated single-use registration capability",
+    "refusal": "unadvertised target operation, arbitrary executable or arguments, mutable offer bytes, catch-up cascade, customer-territory write, or authority over the work caused by delivery",
+    "operation-catalog": {
+      "solicit-service": {
+        "contract": "ni:///sha-256;MJEOd4w7xWL3i1gomnpUis5sytiyM-D9Od02XMEikg8",
+        "accepts": "ActivityStreams Offer<ServiceSolicitation<ScheduledActivityDeliveryRequest>>",
+        "returns": "ActivityStreams Offer<ExecutableServiceOffer>|Question|Reject",
+        "timeoutMs": 30000
+      },
+      "invoke-service": {
+        "contract": "ni:///sha-256;MJEOd4w7xWL3i1gomnpUis5sytiyM-D9Od02XMEikg8",
+        "accepts": "ActivityStreams Accept<ServiceContract>",
+        "returns": "ActivityStreams Accept<ScheduleRegistration>|Reject",
+        "timeoutMs": 30000
+      },
+      "retire-schedule": {
+        "contract": "ni:///sha-256;J2MnxVNRVqJWVqED05wgFyYDBZ7_VAMGI_-UPrnFgLw",
+        "accepts": "ActivityStreams Undo<ScheduleRetirementRequest> with exact customer capability",
+        "returns": "ActivityStreams Accept<ScheduleRetirement>|Reject",
+        "timeoutMs": 30000
+      },
+      "run-due": {
+        "contract": "ni:///sha-256;MJEOd4w7xWL3i1gomnpUis5sytiyM-D9Od02XMEikg8",
+        "accepts": "provider-local clock tick",
+        "returns": "ScheduledDeliveryTickResult",
+        "timeoutMs": 900000
+      }
+    }
+  }
+}

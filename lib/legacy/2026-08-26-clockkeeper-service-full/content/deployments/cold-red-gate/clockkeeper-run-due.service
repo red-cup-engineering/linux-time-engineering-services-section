@@ -1,0 +1,24 @@
+[Unit]
+Description=Cold Red Gate Clockkeeper contracted delivery tick
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/services/clockkeeper-service
+Environment=PATH=%h/.local/bin:%h/.nvm/versions/node/v24.16.0/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CLOCKKEEPER_ACTOR=urn:colony:cold-red-gate:clockkeeper
+Environment=SCHEDULED_ACTIVITY_DELIVERY_DATA_ROOT=%h/services/clockkeeper-service/data
+# One publication pulse may legitimately run for an hour, but it may never
+# consume the persistent host. These limits cover Clockkeeper and every child
+# it starts, including inference clients and deployment tools.
+TimeoutStartSec=70min
+Nice=10
+CPUWeight=50
+IOWeight=50
+MemoryHigh=55%
+MemoryMax=70%
+MemorySwapMax=0
+TasksMax=256
+OOMPolicy=stop
+ExecStart=/usr/bin/env node src/service.mjs --operation run-due

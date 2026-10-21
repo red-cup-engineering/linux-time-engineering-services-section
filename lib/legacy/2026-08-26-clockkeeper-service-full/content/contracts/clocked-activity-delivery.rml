@@ -1,0 +1,24 @@
+#lang rmn/v2
+(map
+  ("type" "ClockedActivityDeliveryLaw")
+  ("version" 1)
+  ("provider" "the sovereign Clockkeeper settlement account")
+  ("precondition" "A customer supplies an exact interval schedule, bounded target settlement and advertised operation, finite ActivityStreams projection, delivery capability, timeout, and dry-run or live mode; invocation accepts the provider-authored offer under a single-use capability.")
+  ("operation" "The provider admits the schedule to its RWIL. On each due occurrence it reserves one idempotency cell, authors one ActivityStreams Create under its own account identity and the customer-admitted capability, and invokes only the exact advertised target operation. It never catches up more than the currently due occurrence.")
+  ("postcondition" "The provider returns an RMN-identified schedule registration and records the target Accept, typed Reject, transport failure, or dry-run receipt for each attempted occurrence in its RWIL.")
+  ("refusal" "Refuse an unadvertised operation, arbitrary executable or arguments, changed runtime closure, expired or excessive capability, unbounded catch-up, customer-territory write, or authority over the work caused by delivery.")
+  ("effects"
+    ("provider-local-append-only-schedule"
+     "provider-local-occurrence-reservation"
+     "exact-advertised-target-operation-invocation"))
+  ("invariants"
+    ("one-occurrence-one-attempt"
+     "no-arbitrary-command-or-arguments"
+     "no-customer-filesystem-write"
+     "typed-target-refusal-is-terminal"
+     "no-hidden-retry-cascade"
+     "provider-does-not-own-triggered-work"
+     "unknown-resource-use-is-not-zero"))
+  ("maximumDeliveryTimeoutMilliseconds" 3600000)
+  ("retirement" "Only the registered customer carrying an exact unexpired one-use capability may retire the schedule; future ticks skip it while all prior evidence remains append-only.")
+  ("projections" ("ActivityStreams-2.0" "ActivityPub-provider" "RWIL-RDF")))

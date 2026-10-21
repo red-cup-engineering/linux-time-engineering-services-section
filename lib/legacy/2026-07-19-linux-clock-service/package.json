@@ -1,0 +1,50 @@
+{
+  "name": "@emsenn/clockkeeper-service",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Portable Clockkeeper service for colony-owned, contracted, idempotent ActivityStreams delivery.",
+  "bin": {
+    "solicit-service": "./src/service.mjs",
+    "invoke-service": "./src/service.mjs",
+    "retire-schedule": "./src/service.mjs",
+    "run-due": "./src/service.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/service.mjs && node --check test/service.test.mjs",
+    "test": "node --test test/service.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "x-agentic-metro-enterprise": {
+    "node-id": "clockkeeper-service",
+    "owners": ["board-of-directors", "executive-office", "working-services-section"],
+    "membrane": { "law": "lib/", "lasting-instances": "content/", "append-only-instances": "data/" },
+    "admission": "an exact ActivityStreams solicitation followed by customer acceptance of the provider offer and an attenuated single-use registration capability",
+    "refusal": "unadvertised target operation, arbitrary executable or arguments, mutable offer bytes, catch-up cascade, customer-territory write, or authority over the work caused by delivery",
+    "operation-catalog": {
+      "solicit-service": {
+        "contract": "clocked-activity-delivery",
+        "accepts": "ActivityStreams Offer<ServiceSolicitation<ScheduledActivityDeliveryRequest>>",
+        "returns": "ActivityStreams Offer<ExecutableServiceOffer>|Question|Reject",
+        "timeoutMs": 30000
+      },
+      "invoke-service": {
+        "contract": "clocked-activity-delivery",
+        "accepts": "ActivityStreams Accept<ServiceContract>",
+        "returns": "ActivityStreams Accept<ScheduleRegistration>|Reject",
+        "timeoutMs": 30000
+      },
+      "retire-schedule": {
+        "contract": "clocked-activity-delivery-retirement",
+        "accepts": "ActivityStreams Undo<ScheduleRetirementRequest> with exact customer capability",
+        "returns": "ActivityStreams Accept<ScheduleRetirement>|Reject",
+        "timeoutMs": 30000
+      },
+      "run-due": {
+        "contract": "clocked-activity-delivery",
+        "accepts": "provider-local clock tick",
+        "returns": "ScheduledDeliveryTickResult",
+        "timeoutMs": 300000
+      }
+    }
+  }
+}
