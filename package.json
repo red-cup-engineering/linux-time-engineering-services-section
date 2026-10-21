@@ -11,5 +11,9 @@
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/linux-time-services-section.git"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "kind": "original-operating-system-section-source-receiving",
+  "repository": "red-cup-engineering/computer-operating-system-services-section",
+  "commit": "df875d1dc2ca7c855245912386a3565bbab80309",
+  "path": "services/linux-services-section/services/linux-time-services-section",
+  "tree": "f49ad5c7c173358345448762e3110449918e1296",
+  "canonicalRepository": "red-cup-engineering/linux-time-services-section",
+  "originalImportCommit": "017c3b2c04817b37440f9e7496aa276e958c1fdd",
+  "originalSourceHistoryRetained": true,
+  "functionalCodeUnchanged": true,
+  "grade": "source ownership and composition only; no new registry, installed or native operating receipt",
+  "originalObligations": [
+    "Original ./service export targets absent scripts/service.mjs; retained historical implementations need proper integration before runtime publication."
+  ]
+}
