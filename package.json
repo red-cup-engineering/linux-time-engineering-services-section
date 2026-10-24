@@ -1,5 +1,5 @@
 {
-  "name": "@red-cup-engineering/linux-time-services-section",
+  "name": "@red-cup-engineering/linux-time-engineering-services-section",
   "version": "0.1.0",
   "description": "Linux time services: clock-keeping for Linux hosts.",
   "type": "module",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/red-cup-engineering/linux-time-services-section.git"
+    "url": "git+https://github.com/red-cup-engineering/linux-time-engineering-services-section.git"
   },
   "license": "MIT",
   "funding": {
