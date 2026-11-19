@@ -1,0 +1,3 @@
+# Provenance
+
+Capture taken 2026-08-26 of cold-red-gate `~/services/clockkeeper-service`, the live clockkeeper (timer fires every 15 minutes, pulsing an ActivityPub actor on bare-cedar-fog.561.group toward the koios.news inbox). The earlier local snapshot (2026-07-19-persistent-clockkeeper-service) lacked `src/law.mjs` and the content tree. `ops/systemd/` here holds the `clockkeeper-run-due.service` and `.timer` units copied from the remote home directory, previously uncaptured. Excluded: `node_modules`, live `data/`, and `content/evm/` (EVM account material, deliberately left for manual handling).

@@ -1,0 +1,28 @@
+{
+  "kind": "metroplat.contract",
+  "id": "clocked-activity-delivery",
+  "provider": "deployment-specific colony Clockkeeper actor",
+  "precondition": "A customer supplies an exact interval schedule, bounded target package and advertised operation, finite ActivityStreams object template, delivery capability identifier, timeout, and dry-run or live mode; invocation accepts the provider-authored offer under a single-use capability.",
+  "move": "The provider records the accepted schedule locally. On each due occurrence it reserves one idempotency key, authors one ActivityStreams Create under its own actor and the customer-admitted capability, and invokes only the exact operation advertised by the target package. It never catches up more than the currently due occurrence.",
+  "postcondition": "The provider returns a digest-bound schedule registration and later records the exact request bytes plus the target Accept, typed Reject, transport failure, or dry-run receipt for each attempted occurrence.",
+  "effects": [
+    "provider-local-append-only-schedule",
+    "provider-local-occurrence-reservation",
+    "exact-advertised-target-operation-invocation"
+  ],
+  "invariants": [
+    "one-occurrence-one-attempt",
+    "no-arbitrary-command-or-arguments",
+    "no-customer-filesystem-write",
+    "typed-target-refusal-is-terminal",
+    "no-hidden-retry-cascade",
+    "provider-does-not-own-triggered-work",
+    "unknown-resource-use-is-not-zero"
+  ],
+  "retirement": {
+    "contract": "clocked-activity-delivery-retirement",
+    "authority": "only the registered customer carrying an exact unexpired one-use capability may retire its provider-owned schedule",
+    "effect": "future run-due ticks skip the retired schedule while prior registrations, occurrences, and receipts remain append-only evidence"
+  },
+  "transportStatus": "The first carrier is local stdio with exact package-operation admission and actor/capability binding. HTTP Signatures, ActivityPub federation, remote inbox discovery, and cryptographic actor authentication are not claimed."
+}
