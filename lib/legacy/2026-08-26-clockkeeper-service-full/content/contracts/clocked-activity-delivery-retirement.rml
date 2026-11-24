@@ -1,0 +1,9 @@
+#lang rmn/v2
+(map
+  ("type" "ClockedActivityDeliveryRetirementLaw")
+  ("version" 1)
+  ("precondition" "The registered customer presents the exact schedule identity and an unexpired one-use capability scoped only to retirement.")
+  ("operation" "The Clockkeeper admits an append-only retirement fact to its RWIL and excludes that schedule from future due-occurrence selection.")
+  ("postcondition" "No later clock tick attempts the retired schedule, while its registration, occurrences, receipts, and retirement remain available as witnessed history.")
+  ("refusal" "Refuse an unknown schedule, a foreign customer, a changed request under an already used identity, or any capability broader than the exact retirement operation.")
+  ("parentLaw" "ni:///sha-256;MJEOd4w7xWL3i1gomnpUis5sytiyM-D9Od02XMEikg8"))
